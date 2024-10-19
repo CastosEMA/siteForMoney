@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser'); // Якщо не використовуєте, можна пропустити
 const app = express();
 
 // Налаштування статичних файлів
@@ -26,7 +25,7 @@ app.post('/api/endpoint', (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 80;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

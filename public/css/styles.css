@@ -44,7 +44,52 @@ body {
 	color: #333;
 	cursor: default;
 }
+.offer_section .title_block {
+	text-transform: uppercase;
+	text-align: center;
+}
 
+.offer_section.offer3 .title_block {
+	padding: 12px 0;
+	background: #53585c;
+	color: #fff;
+}
+
+.offer_section .title_block .main_title {
+	font-weight: 700;
+	font-size: 32px;
+	line-height: 36px;
+}
+
+.offer_section.offer1 .title_block .main_title {
+	padding: 12px 0;
+	background: #53585c;
+	color: #fff;
+}
+
+.offer_section.offer2 .title_block .main_title {
+	padding: 12px 0;
+}
+
+.offer_section.offer3 .title_block .main_title {
+	margin: 0 0 5px;
+}
+
+.offer_section .title_block .subtitle {
+	letter-spacing: 2.5px;
+}
+
+.offer_section.offer1 .title_block .subtitle {
+	padding: 10px 0;
+	color: #fff;
+}
+
+.offer_section.offer2 .title_block .subtitle {
+	padding: 10px 0;
+	background: #53585c;
+	color: #fff;
+}
+і
 .main_wrapper {
 	margin: 0 auto;
 	width: 100%;
