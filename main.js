@@ -1,4 +1,4 @@
-const express = require('express');
+let express = require('express');
 const app = express();
 
 // Налаштування статичних файлів
