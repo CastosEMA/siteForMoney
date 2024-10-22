@@ -1,23 +1,24 @@
 <?php
 // server.php
 
-// Запускаємо вбудований сервер PHP на порту 5000
-$host = '0.0.0.0'; // Дозволяє доступ з будь-якого IP
+$host = '0.0.0.0';
 $port = 5000;
 
-// Запуск сервера
 echo "Запускаю сервер на http://$host:$port...\n";
-chdir(__DIR__); // Зміна робочої директорії на директорію, в якій знаходиться сервер
+chdir(__DIR__); // Зміна робочої директорії
 
-// Виконання команди для запуску сервера
-// Додаємо логіку для обробки запитів до ok.php
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+// Обробка запитів
+if (php_sapi_name() === 'cli-server') {
+    $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-if ($uri === '/ok.php') {
-    include 'public/ok.php'; // Включаємо ok.php, коли є запит на /ok.php
-    exit();
+    // Включення файлів на основі URI
+    if ($uri === '/ok.php') {
+        include 'ok.php'; // Включення файлу ok.php
+    } else {
+        include 'index.html'; // Включення файлу index.html
+    }
+} else {
+    // Запуск вбудованого сервера
+    exec("php -S $host:$port");
 }
-
-// Запуск вбудованого сервера
-exec("php -S $host:$port -t public");
 ?>
