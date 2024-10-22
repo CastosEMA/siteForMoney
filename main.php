@@ -18,7 +18,7 @@ if (php_sapi_name() === 'cli-server') {
         include 'public/index.html'; // Включення файлу index.html з папки public
     } else {
         // Спробуйте обслуговувати статичні файли
-        $filePath = 'public' . $uri;
+        $filePath = __DIR__ . '/public' . $uri;
         if (file_exists($filePath)) {
             return false; // Дозволяє серверу обробляти файл
         } else {
@@ -29,6 +29,6 @@ if (php_sapi_name() === 'cli-server') {
     }
 } else {
     // Запуск вбудованого сервера
-    exec("php -S $host:$port");
+    exec("php -S $host:$port server.php");
 }
 ?>
