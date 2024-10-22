@@ -1,20 +1,27 @@
 <?php
 
-// Отримуємо URI запиту
-$requestUri = $_SERVER['REQUEST_URI'];
+// Перевіряємо, чи виконується скрипт через веб-сервер
+if (php_sapi_name() != 'cli') {
+    // Перевіряємо наявність змінної REQUEST_URI
+    if (isset($_SERVER['REQUEST_URI'])) {
+        $requestUri = $_SERVER['REQUEST_URI'];
+    } else {
+        $requestUri = '/';
+    }
 
-// Шлях до папки 'public'
-$publicDir = __DIR__ . '/public';
+    // Шлях до папки 'public'
+    $publicDir = __DIR__ . '/public';
 
-// Перевіряємо URI запиту
-if ($requestUri == '/' || $requestUri == '/index.html') {
-    // Якщо запит на корінь або index.html — віддаємо index.html
-    include($publicDir . '/index.html');
-} elseif ($requestUri == '/ok.php') {
-    // Якщо запит на /ok.php — віддаємо ok.php
-    include($publicDir . '/ok.php');
+    // Перевіряємо URI запиту
+    if ($requestUri == '/' || $requestUri == '/index.html') {
+        include($publicDir . '/index.html');
+    } elseif ($requestUri == '/ok.php') {
+        include($publicDir . '/ok.php');
+    } else {
+        http_response_code(404);
+        echo "404 - Page Not Found";
+    }
 } else {
-    // Якщо запит невідомий — можна віддати 404 або перенаправити на головну
-    http_response_code(404);
-    echo "404 - Page Not Found";
+    echo "Цей скрипт повинен виконуватися через веб-сервер.";
 }
+
