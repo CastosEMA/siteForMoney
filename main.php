@@ -7,15 +7,25 @@ $port = 5000;
 echo "Запускаю сервер на http://$host:$port...\n";
 chdir(__DIR__); // Зміна робочої директорії
 
-// Обробка запитів
+// Запуск вбудованого сервера
 if (php_sapi_name() === 'cli-server') {
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-    // Включення файлів на основі URI
+    // Обробка запитів
     if ($uri === '/ok.php') {
-        include 'ok.php'; // Включення файлу ok.php
+        include 'public/ok.php'; // Включення файлу ok.php
+    } elseif ($uri === '/' || $uri === '/index.html') {
+        include 'public/index.html'; // Включення файлу index.html з папки public
     } else {
-        include 'index.html'; // Включення файлу index.html
+        // Спробуйте обслуговувати статичні файли
+        $filePath = 'public' . $uri;
+        if (file_exists($filePath)) {
+            return false; // Дозволяє серверу обробляти файл
+        } else {
+            // Обробка помилки 404
+            header("HTTP/1.0 404 Not Found");
+            echo "404 Not Found";
+        }
     }
 } else {
     // Запуск вбудованого сервера
